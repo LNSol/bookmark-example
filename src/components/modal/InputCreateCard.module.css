@@ -1,0 +1,41 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(119, 119, 119, 0.195);
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+}
+.modal .modal-box {
+  background-color: #576f72;
+  border-radius: 3px;
+  width: 300px;
+  height: 100px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+.input {
+  width: 90%;
+  margin-top: 22px;
+}
+.input input {
+  width: 100%;
+  outline: none;
+  height: 30px;
+  padding: 5px;
+}
+.buttons {
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+.buttons button {
+  width: 80px;
+  height: 25px;
+}

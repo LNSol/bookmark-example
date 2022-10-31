@@ -1,0 +1,15 @@
+.top-nav {
+  background-color: #576f72;
+  width: 100vw;
+  height: 8vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px 0 20px;
+}
+.menu a {
+  margin-left: 30px;
+  text-decoration: none;
+  color: white;
+}

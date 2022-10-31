@@ -1,0 +1,20 @@
+.board {
+  background-color: #e4dccf;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  overflow-x: scroll;
+}
+.books {
+  display: flex;
+  align-items: flex-start;
+}
+.books > * {
+  margin-right: 20px;
+}
+.add-button {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}

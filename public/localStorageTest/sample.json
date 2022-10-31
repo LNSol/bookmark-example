@@ -1,0 +1,18 @@
+{
+  "userName": {
+    "books": [
+      {
+        "id": 1,
+        "title": "BookTitle1",
+        "marks": [
+          {
+            "id": 1,
+            "title": "MarkTitle1",
+            "content": "content1",
+            "like": "like: 15"
+          }
+        ]
+      }
+    ]
+  }
+}
