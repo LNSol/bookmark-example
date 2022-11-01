@@ -8,7 +8,7 @@ import { useSession } from '../contexts/session-context';
 const cx = cn.bind(styles);
 
 const Board = () => {
-  const { session } = useSession();
+  const { session, addBook } = useSession();
   const [books, setBooks] = useState([]);
   console.log('books >> ', books);
   const [isShowModal, setIsShowModal] = useState({
@@ -25,10 +25,11 @@ const Board = () => {
     }));
   };
 
-  const addBook = (title) => {
-    const maxId = Math.max(...books.map((book) => book.id), 0);
-    books.push({ id: maxId + 1, title });
-    setBooks([...books]);
+  const addBookCard = (title) => {
+    // const maxId = Math.max(...books.map((book) => book.id), 0);
+    // books.push({ id: maxId + 1, title });
+    // setBooks([...books]);
+    addBook(title);
   };
 
   const closeModal = () => {
@@ -53,7 +54,7 @@ const Board = () => {
         <InputCreateCard
           pos={{ x: isShowModal.x, y: isShowModal.y }}
           closeModal={closeModal}
-          addCard={addBook}
+          addCard={addBookCard}
         />
       ) : (
         <></>

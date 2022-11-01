@@ -8,12 +8,14 @@ import {
 
 const SessionContext = createContext();
 
-const getBookMark = (userName) => {
+const getBooks = (userName) => {
   const bookAndMark = JSON.parse(localStorage.getItem(userName));
-  return bookAndMark ? bookAndMark.books : [];
+  return bookAndMark ? bookAndMark : [];
 };
-const setJoinUser = (userName) => {
-  localStorage.setItem(userName, JSON.stringify({ books: [] }));
+const setBooks = (userName, book) => {
+  const books = getBooks(userName);
+  books.push(book);
+  localStorage.setItem(userName, JSON.stringify(books));
 };
 
 const reducer = (state, action) => {
@@ -21,7 +23,7 @@ const reducer = (state, action) => {
     case 'LOGIN':
       return {
         loginUser: action.payload,
-        books: getBookMark(action.payload),
+        books: getBooks(action.payload),
       };
     case 'LOGOUT':
       return {
@@ -29,7 +31,11 @@ const reducer = (state, action) => {
         books: [],
       };
     case 'ADD_BOOK':
-      break;
+      setBooks(state.loginUser, action.payload);
+      state.books.push(action.payload);
+      return {
+        ...state,
+      };
     case 'ADD_MARK':
       break;
     case 'REMOVE_BOOK':
@@ -55,8 +61,19 @@ export const SessionProvider = ({ children }) => {
     dispatch({ type: 'LOGOUT' });
   }, []);
 
+  const addBook = useCallback(
+    (title) => {
+      const maxId = Math.max(...session.books.map((book) => book.id), 0);
+      dispatch({
+        type: 'ADD_BOOK',
+        payload: { id: maxId + 1, title, marks: [] },
+      });
+    },
+    [session]
+  );
+
   return (
-    <SessionContext.Provider value={{ session, login, logout }}>
+    <SessionContext.Provider value={{ session, login, logout, addBook }}>
       {children}
     </SessionContext.Provider>
   );

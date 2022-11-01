@@ -10,6 +10,24 @@
             "title": "MarkTitle1",
             "content": "content1",
             "like": "like: 15"
+          },
+          {
+            "id": 2,
+            "title": "MarkTitle2",
+            "content": "content2",
+            "like": "like: 20"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "BookTitle2",
+        "marks": [
+          {
+            "id": 1,
+            "title": "MarkTitle1",
+            "content": "content1",
+            "like": "like: 15"
           }
         ]
       }
