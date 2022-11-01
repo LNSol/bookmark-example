@@ -9,13 +9,13 @@ import {
 const SessionContext = createContext();
 
 const getBooks = (userName) => {
-  const { books } = JSON.parse(localStorage.getItem(userName));
+  const { books } = JSON.parse(localStorage.getItem(userName)) ?? { books: [] };
   return books ? books : [];
 };
 const setBooks = (userName, book) => {
   const books = getBooks(userName);
   books.push(book);
-  localStorage.setItem(userName, JSON.stringify(books));
+  localStorage.setItem(userName, JSON.stringify({ books }));
 };
 const setMarks = (userName, bookId, mark) => {
   const books = getBooks(userName);
