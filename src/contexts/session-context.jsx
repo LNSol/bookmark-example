@@ -9,13 +9,18 @@ import {
 const SessionContext = createContext();
 
 const getBooks = (userName) => {
-  const bookAndMark = JSON.parse(localStorage.getItem(userName));
-  return bookAndMark ? bookAndMark : [];
+  const { books } = JSON.parse(localStorage.getItem(userName));
+  return books ? books : [];
 };
 const setBooks = (userName, book) => {
   const books = getBooks(userName);
   books.push(book);
   localStorage.setItem(userName, JSON.stringify(books));
+};
+const setMarks = (userName, bookId, mark) => {
+  const books = getBooks(userName);
+  books.find((book) => book.id === bookId)?.marks.push(mark);
+  localStorage.setItem(userName, JSON.stringify({ books }));
 };
 
 const reducer = (state, action) => {
@@ -33,11 +38,13 @@ const reducer = (state, action) => {
     case 'ADD_BOOK':
       setBooks(state.loginUser, action.payload);
       state.books.push(action.payload);
-      return {
-        ...state,
-      };
+      return { ...state };
     case 'ADD_MARK':
-      break;
+      setMarks(state.loginUser, action.payload.bookId, action.payload.newMark);
+      state.books
+        .find((book) => book.id === action.payload.bookId)
+        ?.marks.push(action.payload.newMark);
+      return { ...state };
     case 'REMOVE_BOOK':
       break;
     case 'REMOVE_MARK':
@@ -72,8 +79,27 @@ export const SessionProvider = ({ children }) => {
     [session]
   );
 
+  const addMark = useCallback(
+    (bookId, title) => {
+      const { marks } = session.books.find((book) => book.id === bookId);
+      const maxId = Math.max(...marks.map((mark) => mark.id), 0);
+      const newMark = {
+        id: maxId + 1,
+        icon: 'Icon',
+        title,
+        content: `content${maxId + 1}`,
+        like: 'like: 15',
+      };
+      console.log('newMark >>> ', newMark);
+      dispatch({ type: 'ADD_MARK', payload: { bookId, newMark } });
+    },
+    [session]
+  );
+
   return (
-    <SessionContext.Provider value={{ session, login, logout, addBook }}>
+    <SessionContext.Provider
+      value={{ session, login, logout, addBook, addMark }}
+    >
       {children}
     </SessionContext.Provider>
   );

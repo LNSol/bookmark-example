@@ -8,7 +8,7 @@ import { useSession } from '../contexts/session-context';
 const cx = cn.bind(styles);
 
 const BookCard = ({ bookId, title }) => {
-  const { session } = useSession();
+  const { session, addMark } = useSession();
   console.log('session >> ', session);
   const [marks, setMarks] = useState([]);
   const [isShowModal, setIsShowModal] = useState({
@@ -24,16 +24,17 @@ const BookCard = ({ bookId, title }) => {
       y: evt.pageY - 100,
     }));
   };
-  const addMark = (title) => {
-    const maxId = Math.max(...marks.map((mark) => mark.id), 0);
-    marks.push({
-      id: maxId + 1,
-      icon: 'Icon',
-      title,
-      content: `content${maxId + 1}`,
-      like: 'like: 20',
-    });
-    setMarks([...marks]);
+  const addMarkCard = (title) => {
+    // const maxId = Math.max(...marks.map((mark) => mark.id), 0);
+    // marks.push({
+    //   id: maxId + 1,
+    //   icon: 'Icon',
+    //   title,
+    //   content: `content${maxId + 1}`,
+    //   like: 'like: 20',
+    // });
+    // setMarks([...marks]);
+    addMark(bookId, title);
   };
 
   const closeModal = () => {
@@ -62,7 +63,7 @@ const BookCard = ({ bookId, title }) => {
         <InputCreateCard
           pos={{ x: isShowModal.x, y: isShowModal.y }}
           closeModal={closeModal}
-          addCard={addMark}
+          addCard={addMarkCard}
         />
       ) : (
         <></>
