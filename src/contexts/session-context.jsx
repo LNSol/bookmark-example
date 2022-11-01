@@ -10,7 +10,7 @@ const SessionContext = createContext();
 
 const getBooks = (userName) => {
   const { books } = JSON.parse(localStorage.getItem(userName)) ?? { books: [] };
-  return books ? books : [];
+  return books;
 };
 const setBooks = (userName, book) => {
   const books = getBooks(userName);
